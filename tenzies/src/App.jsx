@@ -30,13 +30,20 @@ function App() {
     }
   }, [tenzies])
   
-  // Get the best score from localStorage
+  /**
+   * Returns the best score from localStorage, or 0 if none is set
+   * @returns {int} Best game score
+   */
   function getLocalStorageScore() {
     const score = JSON.parse(localStorage.getItem('score'))
     return score || 0
   }
 
-  // Generate a single random die
+  /**
+   * Returns a single random die value (1-6)
+   * Generates ID string with nanoid package
+   * @returns {object} `{ value: int, isHeld: bool, id: string }`
+   */
   function generateNewDie() {
     return {
       value: Math.ceil(Math.random() * 6),
@@ -45,7 +52,10 @@ function App() {
     }
   }
 
-  // Generate 10 new random dice
+  /**
+   * Returns 10 new random dice objects in an array
+   * @returns {array} `[{value: int, isHeld: bool, id: string}]`
+   */
   function allNewDice() {
     const diceArray = []
     for (let i = 0; i < 10; i++) {
@@ -54,8 +64,10 @@ function App() {
     return diceArray
   }
 
-  // Re-roll any dice which are not currently held
-  // Increment roll count when rolling if there are unheld dice
+  /**
+   * Rolls the dice which are not currently held.
+   * If there are unheld dice, increments `rollCount` state
+   */
   function rollDice() {
     setDiceArray(prevArray => prevArray.map(die => {
       return die.isHeld ?
@@ -67,7 +79,10 @@ function App() {
     }
   }
 
-  // Toggle die isHeld value when clicked
+  /**
+   * Toggles die isHeld value when clicked and updates `diceArray` state
+   * @param {string} id The `nanoid` of the specific die
+   */
   function holdDice(id) {
     setDiceArray(prevArray => prevArray.map(die => {
         return die.id === id ? {...die, isHeld: !die.isHeld} : die
