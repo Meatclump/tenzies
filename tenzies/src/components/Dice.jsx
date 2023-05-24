@@ -6,6 +6,11 @@ import t4 from '/Terning4.svg'
 import t5 from '/Terning5.svg'
 import t6 from '/Terning6.svg'
 
+/**
+ * This element represents a 6-sided Die.
+ * @param {object} props `{value: int, isHeld: bool, holdDice: fn}`
+ * @returns Dice JSX element
+ */
 export default function Dice(props) {
     const dieFaces = [t1, t2, t3, t4, t5, t6]
     const styles = {
